@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe - Ryuma Kojima</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --text: #333333;
+            --light-text: #666666;
+            --link: #0066cc;
+            --bg: #eaeaea;
+            --card-bg: #ffffff;
+            --border: #dddddd;
+            --success: #2e7d32;
+            --error: #c62828;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+            color: var(--text);
+            background-color: var(--bg);
+            text-align: center;
+        }
+        .card {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+        h1 {
+            margin-bottom: 1rem;
+        }
+        p {
+            color: var(--light-text);
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .email-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .submit-btn {
+            background-color: var(--link);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .submit-btn:hover {
+            opacity: 0.85;
+        }
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--light-text);
+        }
+        #form-message {
+            margin-top: 1.5rem;
+            padding: 0.8rem;
+            border-radius: 4px;
+            display: none;
+        }
+        #form-message.success {
+            background-color: rgba(46, 125, 50, 0.1);
+            color: var(--success);
+            display: block;
+        }
+        #form-message.error {
+            background-color: rgba(198, 40, 40, 0.1);
+            color: var(--error);
+            display: block;
+        }
+        .fallback-link {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Subscribe</h1>
+        <p>Subscribe to get info and Updates!!/最新の活動やブログの更新情報をメールでお届けします。</p>
+        
+        <form id="subscribe-form" action="https://usebasin.com/f/0dbdf6a78d21" method="POST">
+            <div class="form-group">
+                <input type="email" name="email" class="email-input" placeholder="your-email@example.com" required>
+            </div>
+            <button type="submit" class="submit-btn">Subscribe/登録する</button>
+            <div id="form-message"></div>
+        </form>
+        
+        <!-- Hidden Google Forms fallback -->
+        <div id="google-fallback" style="display: none;">
+            <p style="margin: 1rem 0;">Couldn't load...Subscribe with google form instead/フォームが読み込めませんでした。代わりにGoogleフォームをご利用ください。</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScrRpHwEudQZCkRMPdelTwoDgaZYmb0B7ctYyBdmI9sxWNNoQ/viewform" 
+               class="submit-btn" 
+               target="_blank">
+               Googleフォームで登録/Click to Subscribe with Google form!
+            </a>
+        </div>
+    </div>
+    
+    <a href="index.html" class="back-link">← ホームに戻る/back to home</a>
+
+    <script>
+        document.getElementById('subscribe-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const messageEl = document.getElementById('form-message');
+            const googleFallback = document.getElementById('google-fallback');
+            
+            // Clear previous messages and disable button
+            messageEl.className = '';
+            messageEl.textContent = '';
+            submitBtn.disabled = true;
+            submitBtn.textContent = '送信中...';
+            
+            try {
+                // First try Basin submission
+                const basinResponse = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    mode: 'no-cors'
+                });
+                
+                // If we get here, assume Basin worked
+                messageEl.textContent = '登録ありがとうございます！確認メールが送信されました。';
+                messageEl.classList.add('success');
+                form.reset();
+                
+            } catch (error) {
+                // If Basin fails, show Google Forms fallback
+                console.error('Basin submission failed, showing fallback:', error);
+                form.style.display = 'none';
+                googleFallback.style.display = 'block';
+                
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '登録する';
+            }
+        });
+    </script>
+</body>
+</html>
