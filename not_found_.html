@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Maintenance | Ryuma Kojima</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8f8f8;
+            --text: #333;
+            --accent: #0066cc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .maintenance-container {
+            max-width: 500px;
+            padding: 2rem;
+        }
+        
+        .maintenance-portrait {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 0 auto 1.5rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+        
+        .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .home-link {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        
+        .home-link:hover {
+            background: #0052a3;
+        }
+    </style>
+</head>
+<body>
+    <div class="maintenance-container">
+        <img src="https://pbs.twimg.com/media/GnJQLR1bcAAxfy1?format=jpg&name=360x360" 
+             alt="Ryuma Kojima" 
+             class="maintenance-portrait">
+        
+        <span class="emoji">🔧</span>
+        <h1>Coming Soon...</h1>
+        <p>Sorry! This section of my website is still being worked on.</p>
+        <p>I'm currently making improvements to provide a better experience.</p>
+        
+        <a href="index.html" class="home-link">Return to Homepage</a>
+    </div>
+</body>
+</html>
