@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryuma Kojima</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ============================ */
+        /* === 修正点 1: .hiddenクラスを追加 === */
+        /* ============================ */
+        .hidden {
+            display: none;
+        }
+
+        /* ANIMATION STYLES */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #eaeaea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .intro-content {
+            text-align: center;
+        }
+
+        .intro-portrait {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: 
+                scaleUp 0.8s ease-out forwards,
+                gentlePulse 2s ease-in-out 1s infinite;
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeInOut 1.5s ease-in-out 0.5s;
+        }
+
+        .intro-text {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #888;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 3s forwards;
+        }
+
+        @keyframes scaleUp {
+            from { 
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to { 
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes gentlePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.8; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        /* ================================== */
+        /* === 追加: 目次 (Table of Contents) === */
+        /* ================================== */
+        .table-of-contents {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 100;
+            border: 1px solid var(--border);
+        }
+        .table-of-contents h4 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+        .table-of-contents ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .table-of-contents li {
+            margin-bottom: 0.8rem;
+        }
+        .table-of-contents li:last-child {
+            margin-bottom: 0;
+        }
+        .table-of-contents a {
+            text-decoration: none;
+            color: var(--light-text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .table-of-contents a:hover {
+            color: var(--link);
+        }
+
+        /* 画面が狭い場合は目次を非表示にする */
+        @media (max-width: 1200px) {
+            .table-of-contents {
+                display: none;
+            }
+        }
+
+        /* ==================================== */
+        /* === 追加: Subscribe Float Box  === */
+        /* ==================================== */
+        .subscribe-box {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 100;
+        }
+        .subscribe-box a {
+            display: block;
+            background-color: var(--link);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .subscribe-box a:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
+        }
+        .subscribe-box a strong {
+            display: block;
+            font-size: 1rem;
+        }
+        .subscribe-box a span {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
+        }
+
+        /* 画面が小さいときは少し小さくする */
+        @media (max-width: 600px) {
+            .subscribe-box a {
+                padding: 0.8rem 1.2rem;
+            }
+        }
+
+        /* YOUR EXISTING STYLES */
+        :root {
+            --text: #333333;
+            --light-text: #666666;
+            --link: #0066cc;
+            --bg: #eaeaea;
+            --card-bg: #ffffff;
+            --border: #dddddd;
+            --header-bg: #ffffff;
+            --item-bg: #eaeaea; 
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            color: var(--text);
+            background-color: var(--bg);
+        }
+
+        header {
+            background-color: var(--header-bg);
+            padding: 2rem;
+            margin: -2rem -1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .portrait {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--border);
+            display: block;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .photo-container {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .content-photo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            max-height: 300px;
+        }
+
+        .language-grid, .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .language-item, .skill-item {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--item-bg);
+            border-radius: 8px;
+        }
+
+        .flag-icon, .skill-icon {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin: 0 auto 0.5rem;
+            display: block;
+            background-color: var(--item-bg);
+        }
+
+        .proficiency {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            display: block;
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 600px) {
+            .language-grid, .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .portrait {
+                width: 100px;
+                height: 100px;
+            }
+            .flag-icon, .skill-icon {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        .about-section {
+            padding: 2rem;
+        }
+
+        .about-content {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-photo {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .bio-item {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .bio-label {
+            font-weight: 600;
+            color: #444;
+            min-width: 80px;
+            display: inline-block;
+        }
+
+        .bio-value {
+            color: #222;
+        }
+
+        .program-badge {
+            background: #f0f0f0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+            color: #555;
+        }
+
+        .project-note {
+            color: #888;
+            font-style: italic;
+        }
+
+        @media (max-width: 700px) {
+            .about-content {
+                flex-direction: column;
+            }
+            .about-photo {
+                min-width: 100%;
+            }
+        }
+        
+        .bio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .experience-section {
+            margin-top: 2rem;
+        }
+
+        .research-statement {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .about-columns {
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+
+        .about-portrait {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .about-bio {
+            flex: 2;
+        }
+
+        .profile-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+        }
+
+        .bio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .bio-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .bio-icon {
+            font-size: 1.3rem;
+            margin-top: 0.2rem;
+        }
+
+        .bio-label {
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bio-value {
+            font-size: 1.05rem;
+            color: #333;
+            margin-top: 0.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-columns {
+                flex-direction: column;
+            }
+            .about-portrait {
+                width: 60%;
+                margin: 0 auto;
+            }
+        }
+        
+        .contact-section {
+            margin-top: 3rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .portrait {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .status {
+            color: #666;
+            margin: 0.5rem 0 1.5rem;
+            font-size: 1rem;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 0.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #444;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            background: #f8f8f8;
+        }
+
+        .nav-link:hover {
+            color: #0066cc;
+            border-color: #d0e3ff;
+            background: #f0f7ff;
+            transform: translateY(-2px);
+        }
+
+        @media (min-width: 600px) {
+            .header-nav {
+                gap: 2rem;
+            }
+            .nav-link {
+                padding: 0.5rem 1.2rem;
+            }
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1.2rem;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s ease;
+            border: 1px solid #eee;
+        }
+
+        .contact-link:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .contact-icon {
+            font-size: 1.3rem;
+        }
+
+        .contact-text {
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 600px) {
+            .contact-link {
+                padding: 0.7rem 1rem;
+            }
+        }
+
+        .program-badge {
+            background: #f0f7ff;
+            padding: 0.3rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-left: 0.7rem;
+            color: #0066cc;
+            display: inline-block;
+        }
+
+        .project-note {
+            color: #888;
+            font-style: italic;
+            display: inline-block;
+            margin-top: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="table-of-contents">
+        <h4>Contents</h4>
+        <ul>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#experience">My Experience</a></li>
+            <li><a href="#languages">Languages</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="intro-overlay">
+        <div class="intro-content">
+            <img src="https://pbs.twimg.com/media/GnJQLR1bcAAxfy1?format=jpg&amp;name=360x360" 
+                 alt="Ryuma Kojima" 
+                 class="intro-portrait">
+            <div class="loading-text">Ryuma Portfolio Loading...Click to continue !</div>
+            <p class="intro-text">Click to continue</p>
+        </div>
+    </div>
+
+    <div class="main-content hidden">
+        <header>
+            <div class="header-content">
+                <img src="https://pbs.twimg.com/media/GnJQLRyaAAAtVDx?format=jpg&amp;name=small" 
+                     alt="Ryuma Kojima" 
+                     class="portrait">
+                <h1>Ryuma Kojima</h1>
+                <p class="status">Highschool Year 12 Student (as of 2025)</p>
+                
+                <nav class="header-nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="https://ryumacv.neocities.org/blog" class="nav-link">Blog!!</a> 
+                    <a href="https://ryumacv.neocities.org/project" class="nav-link">Projects</a>
+                    <a href="https://ryumacv.neocities.org/art" class="nav-link">Art Gallery</a>
+                    <a href="https://zernet.neocities.org" class="nav-link">ZERNET (english Teaching programme) </a>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section id="about" class="card about-section">
+                <div class="about-columns">
+                    <div class="about-portrait">
+                        <img src="https://pbs.twimg.com/media/GnJQLRyaAAAtVDx?format=jpg&name=small" 
+                             alt="Ryuma Kojima Portrait" 
+                             class="profile-image">
+                    </div>
+                    
+                    <div class="about-bio">
+                        <h2>About Me</h2>
+                        
+                        <div class="bio-grid">
+                            <div class="bio-item">
+                                <span class="bio-icon">👤</span>
+                                <div>
+                                    <div class="bio-label">Name</div>
+                                    <div class="bio-value">Ryuma Kojima</div>
+                                </div>
+                            </div>
+                            
+                            <div class="bio-item">
+                                <span class="bio-icon">🎓</span>
+                                <div>
+                                    <div class="bio-label">Status</div>
+                                    <div class="bio-value">High School Student (Year 12, 2025)</div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="bio-item">
+                                <span class="bio-icon">❤️</span>
+                                <div>
+                                    <div class="bio-label">Interests</div>
+                                    <div class="bio-value">Linguistics ( I love Mr. Chomsky ),Computer Science, Football</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="experience" class="card experience-section">
+                <h2>My Experience</h2>
+                
+                <div class="experience-content">
+                    <p class="research-statement">
+                        I research language acquisition and pitch frequency — maybe a thesis paper is coming soon.
+                    </p>
+                    
+                    <div class="study-abroad">
+                        <h3>Programms I engaged</h3>
+                        <p class="program">
+                            <strong>2022:</strong> TKS ( The Knowledge Society )
+                            <span class="program-badge"></span>
+                        </p>
+                        <p class="project-details">
+                          hmm...
+                            <span class="project-note"></span>
+                            
+                        </p>
+                         <p class="program">
+                            <strong>2023:</strong> トビタテ！留学JAPAN Program
+                            <span class="program-badge">Funded by Japanese Government</span>
+                        </p>
+                        <p class="project-details">
+                            Microfinance volunteering & language research project
+                        </p>
+                        <p class="program">
+                            <strong>2023:</strong> New-Shi TV program on National TV programme
+                            <span class="program-badge">Quiz program about studying abroad</span>
+                        </p>
+                        <p class="project-details">
+                            <a href="https://www.nhk.jp/p/newshi/ts/3MWXJL2V4J/episode/te/M6P5JXQPRZ/" class="project-link" target="_blank" rel="noopener noreferrer">
+                                Watch Episode: 
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="photo-container">
+                    <img src="https://ryumacv.neocities.org/S__1966182_0.jpg" 
+                         alt="Teaching Japanese in Tanzania" 
+                         class="content-photo">
+                </div>
+            </section>
+    
+            <section id="languages" class="card">
+                <h2>Languages</h2>
+                <div class="language-grid">
+                    <div class="language-item">
+                        <img src="https://pbs.twimg.com/media/GnJPRIWbgAQPtLA?format=jpg&name=240x240" alt="Japan" class="flag-icon">
+                        <p>Japanese<br><span class="proficiency">Native</span></p>
+                    </div>
+                    <div class="language-item">
+                        <img src="https://pbs.twimg.com/media/GnJRG2ObgAIlkt4?format=jpg&name=240x240" alt="Australia" class="flag-icon">
+                        <p>English<br><span class="proficiency">C1</span></p>
+                    </div>
+                    <div class="language-item">
+                        <img src="https://pbs.twimg.com/media/GnJRGy2bgAE1VhA?format=jpg&name=small" alt="Germany" class="flag-icon">
+                        <p>German<br><span class="proficiency">Learning</span></p>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="skills" class="card">
+                <h2>Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <img src="https://ryumacv.neocities.org/Screenshot%202025-08-17%20164228.png" alt="C++" class="skill-icon">
+                        <p>C++ Programming</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://ryumacv.neocities.org/S__3997702_0.jpg" alt="ling" class="skill-icon">
+                        <p>Linguistic Research</p>
+                    </div>
+                    <div class="skill-item">
+                    <img src="https://ryumacv.neocities.org/S__3997704_0.jpg" alt="C++" class="skill-icon">
+                        <p>Arduino</p>
+                    </div>
+                    <div class="skill-item">
+                    <img src="https://ryumacv.neocities.org/IMG_6391.jpeg"class="skill-icon">
+                        <p>Python</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="contact" class="card contact-section">
+                <h2>Contact</h2>
+                <div class="contact-methods">
+                    <a href="https://www.linkedin.com/in/ryuma-kojima-90250a298/" class="contact-link" target="_blank" rel="noopener noreferrer">
+                        <span class="contact-icon">📎</span>
+                        <span class="contact-text">LinkedIn</span>
+                    </a>
+                    <a href="https://www.instagram.com/rrryyma?igsh=YnRvYTg3azlmYmNu&utm_source=qr" class="contact-link" target="_blank" rel="noopener noreferrer">
+                        <span class="contact-icon">📷</span>
+                        <span class="contact-text">Instagram</span>
+                    </a>
+                    <a href="https://x.com/yutatff" class="contact-link" target="_blank" rel="noopener noreferrer">
+                        <span class="contact-icon">X</span>
+                        <span class="contact-text">X( twitter )</span>
+                    </a>
+                    <a href="mailto:ryumakoj@gmail.com" class="contact-link">
+                        <span class="contact-icon">✉️</span>
+                        <span class="contact-text">ryumakoj@gmail.com</span>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="subscribe-box">
+        <a href="https://ryumacv.neocities.org/subscribe">
+            <strong>Subscribe to my webpage!</strong>
+            <span>最新情報を受け取る</span>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.querySelector('.intro-overlay');
+            const mainContent = document.querySelector('.main-content');
+            
+            // ページロード時にスクロールを無効にする
+            document.body.style.overflow = 'hidden';
+
+            overlay.addEventListener('click', () => {
+                overlay.style.animation = 'fadeOut 0.8s ease-out forwards';
+                
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    mainContent.classList.remove('hidden');
+                    // メインコンテンツ表示後にスクロールを有効に戻す
+                    document.body.style.overflow = 'auto';
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
