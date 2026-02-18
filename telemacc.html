@@ -27,15 +27,21 @@
             background-color: #f8fafc;
             border-radius: 1.5rem;
         }
+        @media (max-width: 640px) {
+            model-viewer {
+                min-height: 300px;
+            }
+        }
+        /* ロードマップの表示崩れ防止 */
         .timeline-step {
             position: relative;
-            padding-left: 2.5rem;
+            padding-left: 2rem;
         }
         .timeline-step::before {
             content: '';
             position: absolute;
             left: -33px;
-            top: 6px;
+            top: 10px;
             width: 18px;
             height: 18px;
             border-radius: 50%;
@@ -45,11 +51,11 @@
             z-index: 10;
         }
         .hero-overlay {
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 100%);
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.85) 100%);
         }
         @media (max-width: 768px) {
             .hero-overlay {
-                background: rgba(255, 255, 255, 0.9);
+                background: rgba(255, 255, 255, 0.95);
             }
         }
         .source-link {
@@ -69,7 +75,7 @@
             opacity: 0;
         }
         #past-prototypes.expanded {
-            max-height: 2000px;
+            max-height: 3000px;
             opacity: 1;
             margin-top: 3rem;
         }
@@ -79,22 +85,23 @@
 
     <!-- Navigation -->
     <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <span class="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">T</span>
-                <span class="text-xl font-extrabold tracking-tight">TeleMacC</span>
+                <span class="text-lg md:text-xl font-extrabold tracking-tight text-slate-900">TeleMacC</span>
             </div>
-            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-600">
-                <a href="#about" class="hover:text-teal-600 transition-colors">概要</a>
-                <a href="#system" class="hover:text-teal-600 transition-colors">システム構成</a>
-                <a href="#experiment" class="hover:text-teal-600 transition-colors">実証計画</a>
+            <div class="hidden sm:flex gap-4 md:gap-8 text-[10px] md:text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-teal-600 transition-colors">プロジェクト背景</a>
+                <a href="#problem" class="hover:text-teal-600 transition-colors">課題とコスト</a>
+                <a href="#system" class="hover:text-teal-600 transition-colors">システム</a>
+                <a href="#experiment" class="hover:text-teal-600 transition-colors">ロードマップ</a>
                 <a href="#members" class="hover:text-teal-600 transition-colors">メンバー</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative py-24 overflow-hidden">
+    <header class="relative py-12 md:py-24 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img src="https://raw.githubusercontent.com/ramenismymen/ryuma/main/IMG_8038.jpg" alt="岐阜の農村風景" class="w-full h-full object-cover">
         </div>
@@ -102,18 +109,22 @@
 
         <div class="relative z-20 max-w-7xl mx-auto px-6">
             <div class="max-w-4xl">
-                <span class="inline-block px-4 py-1.5 rounded-full bg-teal-100 text-teal-800 text-sm font-bold mb-6 border border-teal-200 uppercase tracking-wider">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-teal-100 text-teal-800 text-[10px] md:text-xs font-bold mb-6 border border-teal-200 uppercase tracking-wider">
                     Project TeleMacC
                 </span>
-                <h1 class="text-4xl md:text-6xl font-black leading-tight mb-6 text-slate-900">
-                    宅配ロボは<br>
-                    <span class="gradient-text">買う時代から作る時代へ。</span>
+                <h1 class="text-3xl md:text-6xl font-black leading-tight mb-6 text-slate-900">
+                    宅配ロボは<br class="block md:hidden">
+                    <span class="gradient-text text-4xl md:text-6xl">買う時代から作る時代へ。</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-slate-700 font-bold mb-8 leading-relaxed text-balance">
-                    地方の輸送課題を解決するAIロボットの作り方を含めてオープンソース化する。
+                <p class="text-base md:text-2xl text-slate-700 font-bold mb-8 leading-relaxed text-balance">
+                    地方の輸送課題を解決するAIロボットをオープンソース化
                 </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#system" class="px-8 py-4 bg-teal-600 text-white font-bold rounded-2xl hover:bg-teal-700 transition-all card-shadow">
+                <div class="flex flex-col sm:flex-row flex-wrap gap-4">
+                    <a href="https://docs.google.com/spreadsheets/d/13vK1VMxWBUgZy-QQYhFRAgD7cLHMISFGEyw2SQLBluk/edit?gid=1578191327#gid=1578191327" target="_blank" class="px-6 py-4 bg-teal-600 text-white font-bold rounded-2xl hover:bg-teal-700 transition-all card-shadow flex items-center justify-center gap-2 text-sm md:text-base">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                        最新プロトタイプの作り方をダウンロード
+                    </a>
+                    <a href="#system" class="px-6 py-4 bg-white border border-slate-200 text-slate-700 font-bold rounded-2xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2 text-sm md:text-base">
                         システム構成を見る
                     </a>
                 </div>
@@ -122,146 +133,164 @@
     </header>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-white text-left">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-16 items-center border-b border-slate-100 pb-20 mb-20">
-                <div class="space-y-6 text-slate-700 leading-relaxed text-lg">
-                    <h2 class="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3 text-left">
-                        <span class="w-2 h-8 bg-teal-500 rounded-full"></span>
-                        地方のための自作ロボット
-                    </h2>
-                    <p>
-                        私の家族は岐阜で運送業を営んでいますが、運転手は年々減っており、拠点から家庭を繋ぐラストワンマイル輸送は危機に瀕しています。このままでは地方に荷物が届かず、過疎化が進んでしまいます。
+    <section id="about" class="py-16 md:py-20 bg-white text-left">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-10 flex items-center gap-3 text-left">
+                <span class="w-2 h-8 bg-teal-500 rounded-full"></span>
+                プロジェクトの動機
+            </h2>
+            <div class="space-y-8 text-slate-700 leading-relaxed text-base md:text-lg text-left">
+                <p>
+                    地方農村部においてトラック運転手は年々減っており、特に拠点から各家庭を繋ぐ「ラストワンマイル輸送」は危機に瀕しています。このままでは地方に荷物が届かず、住みたいと思う人も減り、過疎化が止まりません。
+                </p>
+                <p>
+                    既にドローンやAIロボットの実験は行われていますが、積載量や天候、法規制、そして何より<strong>開発費用やランニングコスト</strong>という壁に阻まれています。
+                </p>
+                <p>
+                    大手企業による自動配送ロボットの開発や法改正も進んでいますが、導入コストの高さゆえに、地方の中小企業には現実的な選択肢となっていません。<br>
+                    地方の輸送課題で本当に苦しんでいるのは、自社開発ができる大企業ではなく、地方にのみ輸送網を抱える中小企業なのです。
+                </p>
+                <div class="pt-6 border-t border-slate-100">
+                    <p class="font-bold text-slate-900 text-lg">
+                        我々は宅配ロボを作り方を材料も含めて公開し、導入までの敷居を下げます。
                     </p>
-                    <p>
-                        大手企業による自動配送ロボットの社会実装が始まっていますが、導入コストの高さは地方の中小企業にとって現実的ではありません。
-                    </p>
-                    <div class="p-6 bg-slate-50 rounded-2xl border-l-4 border-teal-500">
-                        <p class="font-bold text-slate-900 leading-relaxed">
-                            地方で苦しんでいるのは、自社で開発や高価なロボット購入ができる大企業ではなく、地方にのみ輸送網を抱える中小企業です。誰でも自作・修理できる廉価なキットを公開し、地方の自立を促します。
-                        </p>
-                    </div>
-                </div>
-                <div class="space-y-8">
-                    <div class="p-8 bg-slate-900 text-white rounded-[2rem] card-shadow">
-                        <h3 class="text-xl font-bold mb-8 text-teal-400 text-center">最大の壁は導入コスト</h3>
-                        <div class="grid grid-cols-2 gap-6 mb-10 text-left">
-                            <div>
-                                <p class="text-slate-400 text-xs font-bold uppercase mb-1">既存の大手製品</p>
-                                <p class="text-3xl font-bold text-white tracking-tight">500万円〜</p>
-                                <p class="text-slate-500 text-[10px] mt-1 text-left">運用費 月100万円/台 <a href="https://www.meti.go.jp/meti_lib/report/2022FY/000085.pdf" target="_blank" class="underline hover:text-teal-400 text-left">[出典]</a></p>
-                            </div>
-                            <div class="border-l border-slate-700 pl-6 text-left">
-                                <p class="text-teal-400 text-xs font-bold uppercase mb-1">TeleMacC 目標</p>
-                                <p class="text-3xl font-bold text-teal-400 tracking-tight">20万円以下</p>
-                                <p class="text-teal-200/50 text-[10px] mt-1 text-left">自作・自己修理で運用費を抑制</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Enlarged Graph Section -->
-            <div class="max-w-5xl mx-auto">
-                <div class="text-center mb-10">
-                    <h3 class="text-2xl font-bold text-slate-800">なぜ宅配ロボットは導入されないのか</h3>
-                    <p class="text-slate-500 mt-2">導入を阻む最大の理由は、技術ではなくコストにあります</p>
-                </div>
-                <div class="bg-white rounded-3xl p-4 md:p-8 card-shadow border border-slate-100 text-center">
-                    <img src="https://www.logi-today.com/wp-content/uploads/2021/12/a4cf3ab75bf012f7eab7de491ea863d6.jpg" alt="物流ロボット導入をためらう理由" class="inline-block max-w-full h-auto rounded-xl">
-                    <div class="mt-6 text-center">
-                        <a href="https://www.logi-today.com/467589" target="_blank" class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-teal-600 transition-colors">
-                            <span>出典：Logistics Today「物流ロボ導入進むも半数が消極的、理由はコスト」</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- System Section -->
-    <section id="system" class="py-24 bg-slate-50 text-center">
+    <!-- Problem & Cost Section -->
+    <section id="problem" class="py-16 md:py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-black mb-4 tracking-tight text-slate-900">最新プロトタイプ: TeleMacC the 1st</h2>
-                <p class="text-slate-500 max-w-2xl mx-auto italic">PCを巨大な脳として使い、2つのESP32を末端神経にする最強の布陣です。</p>
+            
+            <!-- Graph Section -->
+            <div class="max-w-5xl mx-auto mb-20">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-900">なぜ宅配ロボットは導入されないのか</h2>
+                    <p class="text-slate-500 mt-2">導入を阻む最大の理由は、技術的な問題以上に「コスト」にあります。</p>
+                </div>
+                <div class="bg-white rounded-2xl md:rounded-3xl p-4 md:p-8 card-shadow border border-slate-100 text-center overflow-hidden">
+                    <img src="https://www.logi-today.com/wp-content/uploads/2021/12/a4cf3ab75bf012f7eab7de491ea863d6.jpg" alt="物流ロボット導入をためらう理由" class="inline-block w-full max-w-4xl h-auto rounded-xl">
+                    <div class="mt-4 text-center">
+                        <a href="https://www.logi-today.com/467589" target="_blank" class="inline-flex items-center gap-2 text-[10px] md:text-sm text-slate-400 hover:text-teal-600 transition-colors text-center">
+                            <span>出典：Logistics Today「物流ロボ導入進むも半数が消極的、理由はコスト」</span>
+                            <svg class="w-3 h-3 md:w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-12 items-stretch mb-16 text-left">
-                <div class="grid grid-cols-1 gap-6">
-                    <!-- Eye -->
-                    <div class="bg-white p-8 rounded-3xl card-shadow border border-slate-100 flex items-center gap-6 group hover:border-teal-500 transition-all">
-                        <div class="w-16 h-16 bg-blue-50 text-blue-700 rounded-2xl flex items-center justify-center text-xl font-bold flex-shrink-0 group-hover:bg-blue-100 transition-colors">目</div>
+            <!-- Cost Comparison -->
+            <div class="max-w-4xl mx-auto">
+                <div class="p-8 md:p-12 bg-slate-900 text-white rounded-[2rem] card-shadow">
+                    <h3 class="text-xl md:text-2xl font-bold mb-10 text-teal-400 text-center">最大の壁は導入コスト</h3>
+                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 text-left">
                         <div>
-                            <h3 class="text-lg font-bold">XIAO ESP32S3 Sense</h3>
-                            <p class="text-sm text-slate-600">高画質映像をストリーミング配信。ロボットの視界を担当します。</p>
+                            <p class="text-slate-400 text-xs font-bold uppercase mb-2">既存の大手製品</p>
+                            <p class="text-4xl font-bold text-white tracking-tight">500万円〜</p>
+                            <p class="text-slate-400 text-xs mt-2">＋運用費 月100万円/台 <a href="https://www.meti.go.jp/meti_lib/report/2022FY/000085.pdf" target="_blank" class="underline hover:text-teal-400 text-slate-500 ml-1">出典：経済産業省/PwC 調査報告書</a></p>
+                        </div>
+                        <div class="border-t md:border-t-0 md:border-l border-slate-700 pt-8 md:pt-0 md:pl-12">
+                            <p class="text-teal-400 text-xs font-bold uppercase mb-2">TeleMacC 目標</p>
+                            <p class="text-4xl font-bold text-teal-400 tracking-tight">10万円以下</p>
+                            <p class="text-teal-200/70 text-xs mt-2">既存インフラに頼り、機能を抑え低コストに</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- System Section -->
+    <section id="system" class="py-16 md:py-24 bg-white text-center">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-black mb-4 tracking-tight text-slate-900">最新プロトタイプ: TeleMacC the 1st</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-stretch mb-12 text-left">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 text-left">
+                    <!-- Eye -->
+                    <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-100 flex items-center gap-4 group hover:border-teal-500 transition-all text-left">
+                        <div class="w-12 h-12 bg-blue-50 text-blue-700 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0 group-hover:bg-blue-100 transition-colors">目</div>
+                        <div>
+                            <h3 class="text-sm md:text-base font-bold text-slate-900 text-left">XIAO ESP32S3 Sense</h3>
+                            <p class="text-xs text-slate-600 leading-snug text-left">高画質映像をストリーミング配信。ロボットの視界を担当します。</p>
                         </div>
                     </div>
                     <!-- Brain -->
-                    <div class="bg-teal-600 p-8 rounded-3xl shadow-xl text-white flex items-center gap-6">
-                        <div class="w-16 h-16 bg-teal-400 text-teal-900 rounded-2xl flex items-center justify-center text-xl font-bold flex-shrink-0">脳</div>
+                    <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-100 flex items-center gap-4 group hover:border-teal-500 transition-all text-left">
+                        <div class="w-12 h-12 bg-teal-50 text-teal-700 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0 group-hover:bg-teal-100 transition-colors">脳</div>
                         <div>
-                            <h3 class="text-lg font-bold">PC (Python + AI)</h3>
-                            <p class="text-sm text-teal-50">映像を解析し、電柱などを認識。足に指示を出す中枢です。</p>
+                            <h3 class="text-sm md:text-base font-bold text-slate-900 text-left">PC (Python + AI)</h3>
+                            <p class="text-xs text-slate-600 leading-snug text-left">映像を解析し、電柱などを認識。足に指示を出す中枢です。</p>
                         </div>
                     </div>
                     <!-- Leg -->
-                    <div class="bg-white p-8 rounded-3xl card-shadow border border-slate-100 flex items-center gap-6 group hover:border-teal-500 transition-all">
-                        <div class="w-16 h-16 bg-slate-100 text-slate-800 rounded-2xl flex items-center justify-center text-xl font-bold flex-shrink-0 group-hover:bg-slate-200 transition-colors">足</div>
+                    <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-100 flex items-center gap-4 group hover:border-teal-500 transition-all text-left text-balance">
+                        <div class="w-12 h-12 bg-slate-100 text-slate-800 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0 group-hover:bg-slate-200 transition-colors">足</div>
                         <div>
-                            <h3 class="text-lg font-bold">ESP32 (Normal)</h3>
-                            <p class="text-sm text-slate-600">PCからの命令をUDPで受け、モーターを制御して走行させます。</p>
+                            <h3 class="text-sm md:text-base font-bold text-slate-900 text-left">ミニ四駆のモーター</h3>
+                            <p class="text-xs text-slate-600 leading-snug text-left">ESP32からの命令を受け、実際に機体を駆動させます。</p>
+                        </div>
+                    </div>
+                    <!-- Body -->
+                    <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-100 flex items-center gap-4 group hover:border-teal-500 transition-all text-left">
+                        <div class="w-12 h-12 bg-amber-50 text-amber-700 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0 group-hover:bg-amber-100 transition-colors">体</div>
+                        <div>
+                            <h3 class="text-sm md:text-base font-bold text-slate-900 text-left">100均のホワイトボード</h3>
+                            <p class="text-xs text-slate-600 leading-snug text-left text-balance">軽量化と低コストを両立。誰でも手に入る素材で構成されています。</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- 3D Model Integrated -->
-                <div class="relative min-h-[400px]">
-                    <div class="absolute inset-0 bg-white rounded-[2.5rem] card-shadow border border-slate-100 overflow-hidden">
+                <div class="relative min-h-[350px]">
+                    <div class="absolute inset-0 bg-white rounded-2xl md:rounded-[2.5rem] card-shadow border border-slate-100 overflow-hidden">
                         <model-viewer 
                             src="https://raw.githubusercontent.com/ramenismymen/ryuma/main/Scaniverse%202026-02-18%20170430.glb" 
                             poster="https://raw.githubusercontent.com/ramenismymen/ryuma/main/IMG_8892__2_-removebg-preview.png"
                             auto-rotate camera-controls shadow-intensity="1">
                         </model-viewer>
-                        <div class="absolute bottom-4 left-4 bg-white/80 backdrop-blur px-3 py-1 rounded-lg text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
-                            TeleMacC the 1st (Scaniverse 3D Archive)
+                        <div class="absolute bottom-4 left-4 bg-white/80 backdrop-blur px-3 py-1 rounded-lg text-[9px] font-bold text-slate-400 uppercase tracking-tighter">
+                            TeleMacC the 1st (3D Archive)
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Toggle Button for Past Prototypes -->
-            <div class="text-center">
-                <button onclick="togglePrototypes()" class="inline-flex items-center gap-3 px-8 py-3 bg-white border border-slate-200 text-slate-600 font-bold rounded-2xl hover:bg-slate-50 hover:border-teal-300 hover:text-teal-600 transition-all group">
+            <div class="text-center px-4 mb-16">
+                <button onclick="togglePrototypes()" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3 bg-white border border-slate-200 text-slate-600 font-bold rounded-2xl hover:bg-slate-50 hover:border-teal-300 transition-all group shadow-sm">
                     <span>過去のプロトタイプを見る</span>
                     <svg id="toggle-icon" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
                 </button>
             </div>
 
             <!-- Past Prototypes Container -->
-            <div id="past-prototypes" class="text-left">
-                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div id="past-prototypes" class="text-left px-2">
+                <div class="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
                     <!-- Boris the 1st -->
-                    <div class="bg-white p-8 rounded-3xl border border-slate-100 card-shadow flex flex-col items-center">
-                        <div class="w-full aspect-square bg-slate-50 rounded-2xl overflow-hidden mb-6 border border-slate-100">
+                    <div class="bg-white p-6 md:p-8 rounded-2xl card-shadow border border-slate-100 flex flex-col items-center text-center">
+                        <div class="w-full aspect-square bg-slate-50 rounded-xl overflow-hidden mb-6 border border-slate-100 shadow-inner">
                             <img src="https://ryumacv.neocities.org/random%20pgoto/IMG_8868.jpeg" alt="Boris the 1st" class="w-full h-full object-cover">
                         </div>
-                        <h4 class="text-xl font-bold mb-2 text-slate-800">Boris the 1st</h4>
-                        <p class="text-xs text-teal-600 font-bold uppercase tracking-widest mb-4">Initial Prototype</p>
-                        <p class="text-sm text-slate-600 text-left leading-relaxed">
+                        <h4 class="text-lg font-bold mb-2 text-slate-800">Boris the 1st</h4>
+                        <p class="text-[10px] text-teal-600 font-bold uppercase tracking-widest mb-4">Initial Prototype</p>
+                        <p class="text-xs md:text-sm text-slate-600 text-left leading-relaxed text-balance">
                             Raspberry Pi 5とArduino Minimaを搭載し、機体単体でAI処理を完結させるシステム。シャーシには近所の木材の廃材を利用し、SDGｓにも配慮した。
                         </p>
                     </div>
 
                     <!-- Boris the 2nd -->
-                    <div class="bg-white p-8 rounded-3xl border border-slate-100 card-shadow flex flex-col items-center text-center">
-                        <div class="w-full aspect-square bg-slate-50 rounded-2xl overflow-hidden mb-6 border border-slate-100">
-                            <img src="https://raw.githubusercontent.com/ramenismymen/ryuma/main/IMG_7109.jpeg" alt="Boris the 2nd" class="w-full h-full object-cover text-center">
+                    <div class="bg-white p-6 md:p-8 rounded-2xl card-shadow border border-slate-100 flex flex-col items-center text-center">
+                        <div class="w-full aspect-square bg-slate-50 rounded-xl overflow-hidden mb-6 border border-slate-100 shadow-inner">
+                            <img src="https://raw.githubusercontent.com/ramenismymen/ryuma/main/IMG_7109.jpeg" alt="Boris the 2nd" class="w-full h-full object-cover">
                         </div>
-                        <h4 class="text-xl font-bold mb-2 text-slate-800">Boris the 2nd</h4>
-                        <p class="text-xs text-teal-600 font-bold uppercase tracking-widest mb-4">Prototype v2</p>
-                        <p class="text-sm text-slate-600 text-left leading-relaxed text-left">
+                        <h4 class="text-lg font-bold mb-2 text-slate-800 text-center">Boris the 2nd</h4>
+                        <p class="text-[10px] text-teal-600 font-bold uppercase tracking-widest mb-4">Prototype v2</p>
+                        <p class="text-xs md:text-sm text-slate-600 text-left leading-relaxed text-balance">
                             Boris the 1stの知見を活かしつつ、シャーシに100均のホワイトボードで軽量化を図った。
                         </p>
                     </div>
@@ -271,56 +300,56 @@
     </section>
 
     <!-- Experiment Section -->
-    <section id="experiment" class="py-20 bg-white text-left">
+    <section id="experiment" class="py-16 md:py-24 bg-slate-50 text-left">
         <div class="max-w-4xl mx-auto px-6 text-left">
-            <h2 class="text-3xl font-bold mb-16 text-center text-slate-900">実証実験ロードマップ</h2>
+            <h2 class="text-2xl md:text-3xl font-bold mb-16 text-center text-slate-900">実証実験ロードマップ</h2>
             <div class="relative border-l-2 border-teal-200 ml-4 space-y-16 text-slate-700 text-left">
                 <div class="timeline-step">
-                    <h3 class="text-xl font-extrabold text-teal-700 mb-4">【1ヶ月目】視覚航法の確立</h3>
-                    <p class="leading-relaxed text-left">YOLOv8による電柱および路側帯の認識精度を向上。GPSに頼らず電柱を道標とする、省エネかつ高精度なアルゴリズムを実装します。</p>
+                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left">【第一段階】視覚航法の確立</h3>
+                    <p class="text-sm md:text-base leading-relaxed text-left">YOLOv8による電柱および路側帯の認識精度を向上。GPSに頼らず電柱を道標とする、省エネかつ高精度なアルゴリズムを実装します。</p>
                 </div>
                 <div class="timeline-step">
-                    <h3 class="text-xl font-extrabold text-teal-700 mb-4">【2ヶ月目】ハードウェアの農具化</h3>
-                    <p class="leading-relaxed text-left">地方の悪路や荒い扱いにも耐えうるホームセンターの部材でシャーシを製作。精密機器ではなく、現場で修理可能な動く荷車としての耐久性を持たせます。</p>
+                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left">【第二段階】ハードウェアの農具化</h3>
+                    <p class="text-sm md:text-base leading-relaxed text-left">地方の悪路や荒い扱いにも耐えうるホームセンターの部材でシャーシを製作。精密機器ではなく、現場で修理可能な動く荷車としての耐久性を持たせます。</p>
                 </div>
                 <div class="timeline-step">
-                    <h3 class="text-xl font-extrabold text-teal-700 mb-4">【3ヶ月目】オープンソース化・スケーラビリティ検証</h3>
-                    <p class="leading-relaxed mb-4 text-balance text-left">荷物を積載した状態で1kmの連続自律走行試験を実施。非エンジニアによる組み立て検証を行い、誰でも作れる・直せることを証明します。</p>
+                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left">【第三段階】オープンソース化・スケーラビリティ検証</h3>
+                    <p class="text-sm md:text-base leading-relaxed mb-4 text-balance text-left text-left">荷物を積載した状態で1kmの連続自律走行試験を実施。非エンジニアによる組み立て検証を行い、誰でも作れる・直せることを証明します。</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Member Section -->
-    <section id="members" class="py-24 bg-slate-50 border-t border-slate-100 text-center">
+    <section id="members" class="py-20 md:py-24 bg-white border-t border-slate-100 text-center">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-black mb-4 text-slate-900">メンバー紹介</h2>
-            <div class="grid md:grid-cols-3 gap-8 mt-16 text-center">
+            <h2 class="text-3xl md:text-4xl font-black mb-16 text-slate-900 text-center">貢献者</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center text-balance">
                 <!-- Ryuma -->
-                <div class="p-8 bg-white rounded-[2.5rem] card-shadow border border-slate-100 flex flex-col items-center group transition-all hover:-translate-y-2">
+                <div class="p-8 bg-white rounded-3xl card-shadow border border-slate-100 flex flex-col items-center group transition-all hover:-translate-y-2 text-center">
                     <div class="w-24 h-24 bg-slate-100 rounded-full mb-6 overflow-hidden border-2 border-teal-500 p-1">
                         <img src="https://pbs.twimg.com/media/GnJQLRyaAAAtVDx?format=jpg&name=small" alt="Ryuma Kojima" class="w-full h-full object-cover rounded-full">
                     </div>
-                    <h3 class="text-xl font-extrabold mb-1 text-slate-800">Ryuma Kojima</h3>
-                    <p class="text-teal-600 text-xs font-bold mb-8 uppercase tracking-widest text-center">考案・製作</p>
-                    <a href="https://ryumacv.neocities.org/" target="_blank" class="w-full py-3 px-6 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-teal-50 hover:border-teal-200 hover:text-teal-700 transition-all flex items-center justify-center gap-2">
+                    <h3 class="text-xl font-extrabold mb-1 text-slate-800 text-center">Ryuma Kojima</h3>
+                    <p class="text-teal-600 text-[10px] font-bold mb-8 uppercase tracking-widest text-center text-center">考案・製作</p>
+                    <a href="https://ryumacv.neocities.org/" target="_blank" class="w-full py-3 px-6 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center justify-center gap-2">
                         個人サイトを表示
                     </a>
                 </div>
                 <!-- Maria -->
-                <div class="p-8 bg-white rounded-[2.5rem] card-shadow border border-slate-100 flex flex-col items-center group transition-all hover:-translate-y-2">
+                <div class="p-8 bg-white rounded-3xl card-shadow border border-slate-100 flex flex-col items-center group transition-all hover:-translate-y-2 text-center">
                     <div class="w-24 h-24 bg-teal-50 rounded-full mb-6 flex items-center justify-center border-2 border-teal-500 text-teal-600 font-bold text-2xl group-hover:bg-teal-100 transition-colors">M</div>
                     <h3 class="text-xl font-extrabold mb-1 text-slate-800 text-center">Maria Fujisawa</h3>
-                    <p class="text-teal-600 text-xs font-bold mb-8 uppercase tracking-widest text-center">Co-founder / 戦略的貢献者</p>
-                    <div class="text-xs text-slate-400 italic py-3 border-t border-slate-100 w-full text-center">Strategic Planning</div>
+                    <p class="text-teal-600 text-[10px] font-bold mb-8 uppercase tracking-widest text-center">Co-founder / 戦略的貢献者</p>
+                    <div class="text-xs text-slate-400 italic py-3 border-t border-slate-100 w-full text-center text-balance">Strategic Planning</div>
                 </div>
                 <!-- GMTC -->
-                <div class="p-8 bg-white rounded-[2.5rem] card-shadow border border-slate-100 flex flex-col items-center group transition-all hover:-translate-y-2 text-center">
+                <div class="p-8 bg-white rounded-3xl card-shadow border border-slate-100 flex flex-col items-center group transition-all hover:-translate-y-2 text-center sm:col-span-2 lg:col-span-1 max-w-md mx-auto w-full">
                     <div class="w-24 h-24 bg-teal-600 rounded-full mb-6 flex items-center justify-center border-2 border-white shadow-inner">
                         <div class="w-10 h-10 border-4 border-teal-200 border-t-white rounded-full"></div>
                     </div>
-                    <h3 class="text-xl font-extrabold mb-1 text-slate-800 leading-tight text-center">Fellow Members of GMTC</h3>
-                    <p class="text-teal-600 text-[10px] font-bold mb-8 uppercase tracking-widest text-balance text-center">精神衛生的貢献者</p>
+                    <h3 class="text-lg md:text-xl font-extrabold mb-1 text-slate-800 leading-tight text-center">Fellow Members of GMTC</h3>
+                    <p class="text-teal-600 text-[10px] font-bold mb-8 uppercase tracking-widest text-balance text-center text-center">精神衛生的貢献者</p>
                     <a href="https://gmtcjapan.com/index.html" target="_blank" class="w-full py-3 px-6 bg-teal-600 rounded-xl text-xs font-bold text-white hover:bg-teal-700 transition-all flex items-center justify-center gap-2 card-shadow">
                         Group Page
                     </a>
@@ -330,21 +359,21 @@
     </section>
 
     <!-- Final Vision Section -->
-    <section id="vision" class="py-24 bg-slate-900 text-white overflow-hidden relative text-center">
+    <section id="vision" class="py-20 md:py-24 bg-slate-900 text-white overflow-hidden relative text-center">
         <div class="absolute inset-0 opacity-10 text-center">
             <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 40px 40px;"></div>
         </div>
         <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
-            <h2 class="text-4xl md:text-5xl font-black mb-12 leading-tight text-center">
+            <h2 class="text-3xl md:text-5xl font-black mb-8 md:mb-12 leading-tight text-center">
                 地方による、地方のための<br>
-                <span class="gradient-text">地方の創生</span>
+                <span class="gradient-text text-4xl md:text-6xl">地方の創生</span>
             </h2>
-            <p class="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed text-center text-balance">
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed text-center text-balance mb-12">
                 誰もが作れる宅配ロボットで、地方自立を促す。<br>
                 <span class="text-white font-bold">宅配ロボへの敷居を低く、地方の持続性を高く。</span><br>
                 簡単に制作、運用できる未来へ。
             </p>
-            <div class="mt-20">
+            <div class="mt-8 md:mt-20 text-center text-center">
                 <a href="mailto:ryumakoj@gmail.com" class="inline-flex items-center gap-4 px-10 py-5 bg-teal-500 hover:bg-teal-400 text-white font-bold rounded-2xl transition-all card-shadow">
                     Contact / Join Us
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
@@ -353,9 +382,9 @@
         </div>
     </section>
 
-    <footer class="py-12 bg-white border-t border-slate-200 text-center">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-500 text-sm">
-            <div>&copy; 2025 TeleMacC Project. Open Source for Rural Independence.</div>
+    <footer class="py-12 bg-white border-t border-slate-200 text-center text-center">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-500 text-[10px] md:text-sm text-center">
+            <div class="text-center">&copy; 2025 TeleMacC Project. Open Source for Rural Independence.</div>
             <div class="flex gap-4 items-center grayscale opacity-50 text-center">
                 <img src="https://www.meti.go.jp/press/2022/03/20230327001/20230327001-1.jpg" alt="METI Reference" class="h-8 rounded text-center">
             </div>
