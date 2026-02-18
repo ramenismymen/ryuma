@@ -81,6 +81,10 @@
             opacity: 1;
             margin-top: 3rem;
         }
+        /* モーダルのスタイル */
+        #origin-modal {
+            transition: opacity 0.3s ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -390,11 +394,32 @@
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-500 text-[10px] md:text-sm text-center">
             <div class="text-center">&copy; 2025 TeleMacC Project. Open Source for Rural Independence.</div>
             <div class="flex gap-4 items-center grayscale opacity-50 text-center">
-                <img src="https://ryumacv.neocities.org/illust/IMG_8897.jpg" alt="Naming Origin" class="h-6 w-auto rounded border border-slate-200" title="Telephone Pole McCartney">
+                <!-- 命名の由来イラスト (Clickable) -->
+                <img src="https://ryumacv.neocities.org/illust/IMG_8897.jpg" alt="Naming Origin" class="h-24 w-auto rounded-md border border-slate-200 opacity-80 hover:opacity-100 transition-opacity cursor-pointer" title="Click to see origin" onclick="showOriginModal()">
                 <img src="https://www.meti.go.jp/press/2022/03/20230327001/20230327001-1.jpg" alt="METI Reference" class="h-8 rounded text-center">
             </div>
         </div>
     </footer>
+
+    <!-- Origin Modal -->
+    <div id="origin-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onclick="hideOriginModal()">
+        <div class="bg-white p-8 rounded-3xl max-w-md w-full shadow-2xl transform transition-all scale-100 text-center relative" onclick="event.stopPropagation()">
+            <button onclick="hideOriginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+            </button>
+            <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-teal-100">
+                <img src="https://ryumacv.neocities.org/illust/IMG_8897.jpg" alt="Origin" class="w-full h-full object-cover">
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-slate-800">命名の由来</h3>
+            <p class="text-slate-600 leading-relaxed text-sm">
+                個人的にビートルズが好きなので、<br>
+                <span class="font-bold text-teal-600">Telephone Pole</span> (電柱) と<br>
+                <span class="font-bold text-teal-600">Paul McCartney</span> を掛けて、<br>
+                <span class="font-black text-slate-800 mt-2 block text-lg">Telephone Pole McCartney</span><br>
+                と命名しました。
+            </p>
+        </div>
+    </div>
 
     <script>
         function togglePrototypes() {
@@ -411,6 +436,26 @@
             } else {
                 icon.style.transform = 'rotate(0deg)';
             }
+        }
+
+        // Modal Controls
+        function showOriginModal() {
+            const modal = document.getElementById('origin-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            // Slight animation
+            setTimeout(() => {
+                modal.style.opacity = '1';
+            }, 10);
+        }
+
+        function hideOriginModal() {
+            const modal = document.getElementById('origin-modal');
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
         }
     </script>
 
