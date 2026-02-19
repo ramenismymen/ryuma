@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TeleMacC | Project Overview</title>
-    <!-- ファビコン（タブのアイコン）の設定 -->
     <link rel="icon" href="https://ryumacv.neocities.org/illust/IMG_7564%20(1).jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
@@ -34,7 +33,6 @@
                 min-height: 300px;
             }
         }
-        /* ロードマップの表示崩れ防止 */
         .timeline-step {
             position: relative;
             padding-left: 2rem;
@@ -60,16 +58,6 @@
                 background: rgba(255, 255, 255, 0.95);
             }
         }
-        .source-link {
-            color: #64748b;
-            text-decoration: underline;
-            text-decoration-color: #cbd5e1;
-            transition: color 0.2s;
-        }
-        .source-link:hover {
-            color: #0D9488;
-            text-decoration-color: #0D9488;
-        }
         #past-prototypes {
             transition: all 0.5s ease-in-out;
             max-height: 0;
@@ -81,28 +69,61 @@
             opacity: 1;
             margin-top: 3rem;
         }
-        /* モーダルのスタイル */
         #origin-modal {
             transition: opacity 0.3s ease-in-out;
         }
+        /* Language Selection Overlay */
+        #language-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        #language-overlay.hidden-overlay {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 overflow-hidden" id="main-body">
+
+    <!-- Language Selection Overlay -->
+    <div id="language-overlay">
+        <div class="text-center space-y-8 p-6 animate-fade-in">
+            <img src="https://ryumacv.neocities.org/illust/IMG_7564%20(1).jpg" alt="TeleMacC Logo" class="w-20 h-20 rounded-2xl mx-auto shadow-lg mb-6">
+            <h1 class="text-2xl font-bold text-slate-800 mb-2">Welcome to TeleMacC</h1>
+            <p class="text-slate-500 mb-8">Please select your language / 言語を選択してください</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="selectLanguage('en')" class="group relative px-8 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-teal-600 transition-all shadow-lg hover:shadow-teal-500/30 w-48">
+                    <span class="text-lg">English</span>
+                    <span class="absolute -top-2 -right-2 bg-teal-500 text-white text-[10px] px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">Translated</span>
+                </button>
+                <button onclick="selectLanguage('ja')" class="group px-8 py-4 bg-white border-2 border-slate-200 text-slate-800 font-bold rounded-2xl hover:border-teal-500 hover:text-teal-600 transition-all shadow-lg w-48">
+                    <span class="text-lg">日本語</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Navigation -->
     <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <!-- ロゴ画像 -->
                 <img src="https://ryumacv.neocities.org/illust/IMG_7564%20(1).jpg" alt="TeleMacC Logo" class="w-8 h-8 rounded-lg object-cover shadow-sm">
                 <span class="text-lg md:text-xl font-extrabold tracking-tight text-slate-900">TeleMacC</span>
             </div>
             <div class="hidden sm:flex gap-4 md:gap-8 text-[10px] md:text-sm font-medium text-slate-600">
-                <a href="#about" class="hover:text-teal-600 transition-colors">概要</a>
-                <a href="#problem" class="hover:text-teal-600 transition-colors">課題</a>
-                <a href="#system" class="hover:text-teal-600 transition-colors">システム</a>
-                <a href="#experiment" class="hover:text-teal-600 transition-colors">ロードマップ</a>
-                <a href="#members" class="hover:text-teal-600 transition-colors">メンバー</a>
+                <a href="#about" class="hover:text-teal-600 transition-colors" data-i18n="nav_about">概要</a>
+                <a href="#problem" class="hover:text-teal-600 transition-colors" data-i18n="nav_problem">課題</a>
+                <a href="#system" class="hover:text-teal-600 transition-colors" data-i18n="nav_system">システム</a>
+                <a href="#experiment" class="hover:text-teal-600 transition-colors" data-i18n="nav_roadmap">ロードマップ</a>
+                <a href="#members" class="hover:text-teal-600 transition-colors" data-i18n="nav_members">メンバー</a>
             </div>
         </div>
     </nav>
@@ -110,7 +131,7 @@
     <!-- Hero Section -->
     <header class="relative py-12 md:py-24 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="https://raw.githubusercontent.com/ramenismymen/ryuma/main/IMG_8038.jpg" alt="岐阜の農村風景" class="w-full h-full object-cover">
+            <img src="https://raw.githubusercontent.com/ramenismymen/ryuma/main/IMG_8038.jpg" alt="Rural Landscape" class="w-full h-full object-cover">
         </div>
         <div class="absolute inset-0 z-10 hero-overlay"></div>
 
@@ -120,19 +141,19 @@
                     Project TeleMacC
                 </span>
                 <h1 class="text-3xl md:text-6xl font-black leading-tight mb-6 text-slate-900">
-                    宅配ロボは<br class="block md:hidden">
-                    <span class="gradient-text text-4xl md:text-6xl">買う時代から作る時代へ。</span>
+                    <span data-i18n="hero_title_1">宅配ロボは</span><br class="block md:hidden">
+                    <span class="gradient-text text-4xl md:text-6xl" data-i18n="hero_title_2">買う時代から作る時代へ。</span>
                 </h1>
-                <p class="text-base md:text-2xl text-slate-700 font-bold mb-8 leading-relaxed text-balance">
+                <p class="text-base md:text-2xl text-slate-700 font-bold mb-8 leading-relaxed text-balance" data-i18n="hero_desc">
                     地方の輸送課題を解決するAIロボットの作り方を含めてオープンソース化
                 </p>
                 <div class="flex flex-col sm:flex-row flex-wrap gap-4">
                     <a href="https://docs.google.com/spreadsheets/d/13vK1VMxWBUgZy-QQYhFRAgD7cLHMISFGEyw2SQLBluk/edit?gid=1578191327#gid=1578191327" target="_blank" class="px-6 py-4 bg-teal-600 text-white font-bold rounded-2xl hover:bg-teal-700 transition-all card-shadow flex items-center justify-center gap-2 text-sm md:text-base">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-                        最新プロトタイプの作り方をダウンロード
+                        <span data-i18n="hero_btn_dl">最新プロトタイプの作り方をダウンロード</span>
                     </a>
                     <a href="#system" class="px-6 py-4 bg-white border border-slate-200 text-slate-700 font-bold rounded-2xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2 text-sm md:text-base">
-                        システム構成を見る
+                        <span data-i18n="hero_btn_sys">システム構成を見る</span>
                     </a>
                 </div>
             </div>
@@ -142,20 +163,19 @@
     <!-- About Section -->
     <section id="about" class="py-16 md:py-20 bg-white text-left">
         <div class="max-w-4xl mx-auto px-6">
-            <!-- Text Content Only -->
             <div class="space-y-6 text-slate-700 leading-relaxed text-lg text-left border-b border-slate-100 pb-16 mb-16">
                 <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3 text-left">
                     <span class="w-2 h-8 bg-teal-500 rounded-full"></span>
-                    地方のための自作ロボット
+                    <span data-i18n="about_title">地方のための自作ロボット</span>
                 </h2>
-                <p class="text-sm md:text-lg text-left">
+                <p class="text-sm md:text-lg text-left" data-i18n="about_text_1">
                     私の家族は岐阜で運送業を営んでいますが、運転手は年々減っており、拠点から家庭を繋ぐラストワンマイル輸送は危機に瀕しています。このままでは地方に荷物が届かず、過疎化が進んでしまいます。
                 </p>
-                <p class="text-sm md:text-lg text-left">
+                <p class="text-sm md:text-lg text-left" data-i18n="about_text_2">
                     大手企業による自動配送ロボットの社会実装が始まっていますが、導入コストの高さは地方の中小企業にとって現実的ではありません。
                 </p>
                 <div class="p-6 bg-slate-50 rounded-2xl border-l-4 border-teal-500 text-left">
-                    <p class="font-bold text-slate-900 leading-relaxed text-sm md:text-base text-left text-balance">
+                    <p class="font-bold text-slate-900 leading-relaxed text-sm md:text-base text-left text-balance" data-i18n="about_highlight">
                         地方で苦しんでいるのは、自社で開発や高価なロボット購入ができる大企業ではなく、地方にのみ輸送網を抱える中小企業です。誰でも自作・修理できる廉価なキットを公開し、地方の自立を促します。
                     </p>
                 </div>
@@ -167,21 +187,20 @@
     <section id="problem" class="py-16 md:py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-6">
             
-            <!-- Graph Section -->
             <div class="max-w-5xl mx-auto mb-16 md:mb-20">
                 <div class="mb-8 md:mb-10 text-left">
                     <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2 flex items-center gap-3">
                         <span class="w-2 h-8 bg-teal-500 rounded-full"></span>
-                        なぜ宅配ロボットは導入されないのか
+                        <span data-i18n="prob_title">なぜ宅配ロボットは導入されないのか</span>
                     </h2>
-                    <p class="text-sm md:text-base text-slate-600 ml-5">導入を阻む最大の理由は、技術ではなくコストにあります</p>
+                    <p class="text-sm md:text-base text-slate-600 ml-5" data-i18n="prob_subtitle">導入を阻む最大の理由は、技術ではなくコストにあります</p>
                 </div>
                 
                 <div class="bg-white rounded-2xl md:rounded-3xl p-4 md:p-10 card-shadow border border-slate-100 text-center overflow-hidden">
-                    <img src="https://www.logi-today.com/wp-content/uploads/2021/12/a4cf3ab75bf012f7eab7de491ea863d6.jpg" alt="物流ロボット導入をためらう理由" class="inline-block w-full max-w-4xl h-auto rounded-xl">
+                    <img src="https://www.logi-today.com/wp-content/uploads/2021/12/a4cf3ab75bf012f7eab7de491ea863d6.jpg" alt="Logistics Robot Cost Issue" class="inline-block w-full max-w-4xl h-auto rounded-xl">
                     <div class="mt-6 text-center">
                         <a href="https://www.logi-today.com/467589" target="_blank" class="inline-flex items-center gap-2 text-[10px] md:text-sm text-slate-400 hover:text-teal-600 transition-colors text-center">
-                            <span>出典：Logistics Today「物流ロボ導入進むも半数が消極的、理由はコスト」</span>
+                            <span data-i18n="prob_source">出典：Logistics Today「物流ロボ導入進むも半数が消極的、理由はコスト」</span>
                             <svg class="w-3 h-3 md:w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
                         </a>
                     </div>
@@ -191,17 +210,20 @@
             <!-- Cost Comparison -->
             <div class="max-w-4xl mx-auto">
                 <div class="p-8 md:p-12 bg-slate-900 text-white rounded-[2rem] card-shadow">
-                    <h3 class="text-xl md:text-2xl font-bold mb-10 text-teal-400 text-center">最大の壁は導入コスト</h3>
+                    <h3 class="text-xl md:text-2xl font-bold mb-10 text-teal-400 text-center" data-i18n="cost_title">最大の壁は導入コスト</h3>
                     <div class="grid md:grid-cols-2 gap-8 md:gap-12 text-left">
                         <div>
-                            <p class="text-slate-400 text-xs font-bold uppercase mb-2">既存の大手製品</p>
-                            <p class="text-4xl font-bold text-white tracking-tight">500万円〜</p>
-                            <p class="text-slate-400 text-xs mt-2">＋運用費 月100万円/台 <a href="https://www.meti.go.jp/meti_lib/report/2022FY/000085.pdf" target="_blank" class="underline hover:text-teal-400 text-slate-500 ml-1">出典：経済産業省/PwC 調査報告書</a></p>
+                            <p class="text-slate-400 text-xs font-bold uppercase mb-2" data-i18n="cost_item_1_label">既存の大手製品</p>
+                            <p class="text-4xl font-bold text-white tracking-tight" data-i18n="cost_item_1_val">500万円〜</p>
+                            <p class="text-slate-400 text-xs mt-2">
+                                <span data-i18n="cost_item_1_sub">＋運用費 月100万円/台</span>
+                                <a href="https://www.meti.go.jp/meti_lib/report/2022FY/000085.pdf" target="_blank" class="underline hover:text-teal-400 text-slate-500 ml-1" data-i18n="cost_source">出典：経済産業省/PwC 調査報告書</a>
+                            </p>
                         </div>
                         <div class="border-t md:border-t-0 md:border-l border-slate-700 pt-8 md:pt-0 md:pl-12">
-                            <p class="text-teal-400 text-xs font-bold uppercase mb-2">TeleMacC 目標</p>
-                            <p class="text-4xl font-bold text-teal-400 tracking-tight">20万円以下</p>
-                            <p class="text-teal-200/70 text-xs mt-2">自作・自己修理で運用費を抑制</p>
+                            <p class="text-teal-400 text-xs font-bold uppercase mb-2" data-i18n="cost_item_2_label">TeleMacC 目標</p>
+                            <p class="text-4xl font-bold text-teal-400 tracking-tight" data-i18n="cost_item_2_val">20万円以下</p>
+                            <p class="text-teal-200/70 text-xs mt-2" data-i18n="cost_item_2_sub">自作・自己修理で運用費を抑制</p>
                         </div>
                     </div>
                 </div>
@@ -214,41 +236,41 @@
     <section id="system" class="py-16 md:py-24 bg-white text-center">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-black mb-4 tracking-tight text-slate-900">最新プロトタイプ: TeleMacC the 1st</h2>
+                <h2 class="text-3xl md:text-4xl font-black mb-4 tracking-tight text-slate-900" data-i18n="sys_title">最新プロトタイプ: TeleMacC the 1st</h2>
             </div>
 
             <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-stretch mb-12 text-left">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 text-left">
                     <!-- Eye -->
                     <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-100 flex items-center gap-4 group hover:border-teal-500 transition-all text-left">
-                        <div class="w-12 h-12 bg-blue-50 text-blue-700 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0 group-hover:bg-blue-100 transition-colors">目</div>
+                        <div class="w-12 h-12 bg-blue-50 text-blue-700 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0 group-hover:bg-blue-100 transition-colors" data-i18n="sys_eye_label">目</div>
                         <div>
                             <h3 class="text-sm md:text-base font-bold text-slate-900 text-left">XIAO ESP32S3 Sense</h3>
-                            <p class="text-xs text-slate-600 leading-snug text-left">高画質映像をストリーミング配信。ロボットの視界を担当します。</p>
+                            <p class="text-xs text-slate-600 leading-snug text-left" data-i18n="sys_eye_desc">高画質映像をストリーミング配信。ロボットの視界を担当します。</p>
                         </div>
                     </div>
                     <!-- Brain -->
                     <div class="bg-teal-600 p-6 rounded-2xl shadow-xl text-white flex items-center gap-4 text-left">
-                        <div class="w-12 h-12 bg-teal-400 text-teal-900 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0">脳</div>
+                        <div class="w-12 h-12 bg-teal-400 text-teal-900 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0" data-i18n="sys_brain_label">脳</div>
                         <div>
                             <h3 class="text-sm md:text-base font-bold text-left">PC (Python + AI)</h3>
-                            <p class="text-xs text-teal-50 leading-snug text-left">映像を解析し、電柱などを認識。足に指示を出す中枢です。</p>
+                            <p class="text-xs text-teal-50 leading-snug text-left" data-i18n="sys_brain_desc">映像を解析し、電柱などを認識。足に指示を出す中枢です。</p>
                         </div>
                     </div>
                     <!-- Leg -->
                     <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-100 flex items-center gap-4 group hover:border-teal-500 transition-all text-left text-balance">
-                        <div class="w-12 h-12 bg-slate-100 text-slate-800 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0 group-hover:bg-slate-200 transition-colors">足</div>
+                        <div class="w-12 h-12 bg-slate-100 text-slate-800 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0 group-hover:bg-slate-200 transition-colors" data-i18n="sys_leg_label">足</div>
                         <div>
-                            <h3 class="text-sm md:text-base font-bold text-slate-900 text-left">ミニ四駆のモーター</h3>
-                            <p class="text-xs text-slate-600 leading-snug text-left">ESP32からの命令を受け、実際に機体を駆動させます。</p>
+                            <h3 class="text-sm md:text-base font-bold text-slate-900 text-left" data-i18n="sys_leg_title">ミニ四駆のモーター</h3>
+                            <p class="text-xs text-slate-600 leading-snug text-left" data-i18n="sys_leg_desc">ESP32からの命令を受け、実際に機体を駆動させます。</p>
                         </div>
                     </div>
                     <!-- Body -->
                     <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-100 flex items-center gap-4 group hover:border-teal-500 transition-all text-left">
-                        <div class="w-12 h-12 bg-amber-50 text-amber-700 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0 group-hover:bg-amber-100 transition-colors">体</div>
+                        <div class="w-12 h-12 bg-amber-50 text-amber-700 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0 group-hover:bg-amber-100 transition-colors" data-i18n="sys_body_label">体</div>
                         <div>
-                            <h3 class="text-sm md:text-base font-bold text-slate-900 text-left">100均のホワイトボード</h3>
-                            <p class="text-xs text-slate-600 leading-snug text-left text-balance">軽量化と低コストを両立。誰でも手に入る素材で構成されています。</p>
+                            <h3 class="text-sm md:text-base font-bold text-slate-900 text-left" data-i18n="sys_body_title">100均のホワイトボード</h3>
+                            <p class="text-xs text-slate-600 leading-snug text-left text-balance" data-i18n="sys_body_desc">軽量化と低コストを両立。誰でも手に入る素材で構成されています。</p>
                         </div>
                     </div>
                 </div>
@@ -271,7 +293,7 @@
             <!-- Toggle Button for Past Prototypes -->
             <div class="text-center px-4 mb-16">
                 <button onclick="togglePrototypes()" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3 bg-white border border-slate-200 text-slate-600 font-bold rounded-2xl hover:bg-slate-50 hover:border-teal-300 transition-all group shadow-sm">
-                    <span>過去のプロトタイプを見る</span>
+                    <span data-i18n="btn_past_proto">過去のプロトタイプを見る</span>
                     <svg id="toggle-icon" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
                 </button>
             </div>
@@ -286,7 +308,7 @@
                         </div>
                         <h4 class="text-lg font-bold mb-2 text-slate-800">Boris the 1st</h4>
                         <p class="text-[10px] text-teal-600 font-bold uppercase tracking-widest mb-4">Initial Prototype</p>
-                        <p class="text-xs md:text-sm text-slate-600 text-left leading-relaxed text-balance">
+                        <p class="text-xs md:text-sm text-slate-600 text-left leading-relaxed text-balance" data-i18n="proto_1_desc">
                             Raspberry Pi 5とArduino Minimaを搭載し、機体単体でAI処理を完結させるシステム。シャーシには近所の木材の廃材を利用し、SDGｓにも配慮した。
                         </p>
                     </div>
@@ -298,7 +320,7 @@
                         </div>
                         <h4 class="text-lg font-bold mb-2 text-slate-800 text-center">Boris the 2nd</h4>
                         <p class="text-[10px] text-teal-600 font-bold uppercase tracking-widest mb-4">Prototype v2</p>
-                        <p class="text-xs md:text-sm text-slate-600 text-left leading-relaxed text-balance">
+                        <p class="text-xs md:text-sm text-slate-600 text-left leading-relaxed text-balance" data-i18n="proto_2_desc">
                             Boris the 1stの知見を活かしつつ、シャーシに100均のホワイトボードで軽量化を図った。
                         </p>
                     </div>
@@ -310,19 +332,19 @@
     <!-- Experiment Section -->
     <section id="experiment" class="py-16 md:py-20 bg-white text-left">
         <div class="max-w-4xl mx-auto px-6 text-left">
-            <h2 class="text-2xl md:text-3xl font-bold mb-16 text-center text-slate-900">実証実験ロードマップ</h2>
+            <h2 class="text-2xl md:text-3xl font-bold mb-16 text-center text-slate-900" data-i18n="map_title">実証実験ロードマップ</h2>
             <div class="relative border-l-2 border-teal-200 ml-4 space-y-16 text-slate-700 text-left">
                 <div class="timeline-step">
-                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left">【1ヶ月目】視覚航法の確立</h3>
-                    <p class="text-sm md:text-base leading-relaxed text-left">YOLOv8による電柱および路側帯の認識精度を向上。GPSに頼らず電柱を道標とする、省エネかつ高精度なアルゴリズムを実装します。</p>
+                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left" data-i18n="map_1_title">【1ヶ月目】視覚航法の確立</h3>
+                    <p class="text-sm md:text-base leading-relaxed text-left" data-i18n="map_1_desc">YOLOv8による電柱および路側帯の認識精度を向上。GPSに頼らず電柱を道標とする、省エネかつ高精度なアルゴリズムを実装します。</p>
                 </div>
                 <div class="timeline-step">
-                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left">【2ヶ月目】ハードウェアの農具化</h3>
-                    <p class="text-sm md:text-base leading-relaxed text-left">地方の悪路や荒い扱いにも耐えうるホームセンターの部材でシャーシを製作。精密機器ではなく、現場で修理可能な動く荷車としての耐久性を持たせます。</p>
+                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left" data-i18n="map_2_title">【2ヶ月目】ハードウェアの農具化</h3>
+                    <p class="text-sm md:text-base leading-relaxed text-left" data-i18n="map_2_desc">地方の悪路や荒い扱いにも耐えうるホームセンターの部材でシャーシを製作。精密機器ではなく、現場で修理可能な動く荷車としての耐久性を持たせます。</p>
                 </div>
                 <div class="timeline-step">
-                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left">【3ヶ月目】オープンソース化・スケーラビリティ検証</h3>
-                    <p class="text-sm md:text-base leading-relaxed mb-4 text-balance text-left text-left">荷物を積載した状態で1kmの連続自律走行試験を実施。非エンジニアによる組み立て検証を行い、誰でも作れる・直せることを証明します。</p>
+                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left" data-i18n="map_3_title">【3ヶ月目】オープンソース化・スケーラビリティ検証</h3>
+                    <p class="text-sm md:text-base leading-relaxed mb-4 text-balance text-left text-left" data-i18n="map_3_desc">荷物を積載した状態で1kmの連続自律走行試験を実施。非エンジニアによる組み立て検証を行い、誰でも作れる・直せることを証明します。</p>
                 </div>
             </div>
         </div>
@@ -331,7 +353,7 @@
     <!-- Member Section -->
     <section id="members" class="py-20 md:py-24 bg-slate-50 border-t border-slate-100 text-center">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-black mb-16 text-slate-900 text-center">メンバー紹介</h2>
+            <h2 class="text-3xl md:text-4xl font-black mb-16 text-slate-900 text-center" data-i18n="mem_title">メンバー紹介</h2>
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center text-balance">
                 <!-- Ryuma -->
                 <div class="p-8 bg-white rounded-3xl card-shadow border border-slate-100 flex flex-col items-center group transition-all hover:-translate-y-2 text-center">
@@ -339,16 +361,16 @@
                         <img src="https://pbs.twimg.com/media/GnJQLRyaAAAtVDx?format=jpg&name=small" alt="Ryuma Kojima" class="w-full h-full object-cover rounded-full">
                     </div>
                     <h3 class="text-xl font-extrabold mb-1 text-slate-800 text-center">Ryuma Kojima</h3>
-                    <p class="text-teal-600 text-[10px] font-bold mb-8 uppercase tracking-widest text-center text-center">考案・製作</p>
+                    <p class="text-teal-600 text-[10px] font-bold mb-8 uppercase tracking-widest text-center text-center" data-i18n="mem_ryuma_role">考案・製作</p>
                     <a href="https://ryumacv.neocities.org/" target="_blank" class="w-full py-3 px-6 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center justify-center gap-2">
-                        個人サイトを表示
+                        <span data-i18n="mem_personal_site">個人サイトを表示</span>
                     </a>
                 </div>
                 <!-- Maria -->
                 <div class="p-8 bg-white rounded-3xl card-shadow border border-slate-100 flex flex-col items-center group transition-all hover:-translate-y-2 text-center">
                     <div class="w-24 h-24 bg-teal-50 rounded-full mb-6 flex items-center justify-center border-2 border-teal-500 text-teal-600 font-bold text-2xl group-hover:bg-teal-100 transition-colors">M</div>
                     <h3 class="text-xl font-extrabold mb-1 text-slate-800 text-center">Maria Fujisawa</h3>
-                    <p class="text-teal-600 text-[10px] font-bold mb-8 uppercase tracking-widest text-center">Co-founder / 戦略的貢献者</p>
+                    <p class="text-teal-600 text-[10px] font-bold mb-8 uppercase tracking-widest text-center" data-i18n="mem_maria_role">Co-founder / 戦略的貢献者</p>
                     <div class="text-xs text-slate-400 italic py-3 border-t border-slate-100 w-full text-center text-balance">Strategic Planning</div>
                 </div>
                 <!-- GMTC -->
@@ -357,7 +379,7 @@
                         <div class="w-10 h-10 border-4 border-teal-200 border-t-white rounded-full"></div>
                     </div>
                     <h3 class="text-lg md:text-xl font-extrabold mb-1 text-slate-800 leading-tight text-center">Fellow Members of GMTC</h3>
-                    <p class="text-teal-600 text-[10px] font-bold mb-8 uppercase tracking-widest text-balance text-center text-center">精神衛生的貢献者</p>
+                    <p class="text-teal-600 text-[10px] font-bold mb-8 uppercase tracking-widest text-balance text-center text-center" data-i18n="mem_gmtc_role">精神衛生的貢献者</p>
                     <a href="https://gmtcjapan.com/index.html" target="_blank" class="w-full py-3 px-6 bg-teal-600 rounded-xl text-xs font-bold text-white hover:bg-teal-700 transition-all flex items-center justify-center gap-2 card-shadow">
                         Group Page
                     </a>
@@ -373,13 +395,13 @@
         </div>
         <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
             <h2 class="text-3xl md:text-5xl font-black mb-8 md:mb-12 leading-tight text-center">
-                地方による、地方のための<br>
-                <span class="gradient-text text-4xl md:text-6xl">地方の創生</span>
+                <span data-i18n="vis_title_1">地方による、地方のための</span><br>
+                <span class="gradient-text text-4xl md:text-6xl" data-i18n="vis_title_2">地方の創生</span>
             </h2>
             <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed text-center text-balance mb-12">
-                誰もが作れる宅配ロボットで、地方自立を促す。<br>
-                <span class="text-white font-bold">宅配ロボへの敷居を低く、地方の持続性を高く。</span><br>
-                簡単に制作、運用できる未来へ。
+                <span data-i18n="vis_text_1">誰もが作れる宅配ロボットで、地方自立を促す。</span><br>
+                <span class="text-white font-bold" data-i18n="vis_text_2">宅配ロボへの敷居を低く、地方の持続性を高く。</span><br>
+                <span data-i18n="vis_text_3">簡単に制作、運用できる未来へ。</span>
             </p>
             <div class="mt-8 md:mt-20 text-center text-center">
                 <a href="mailto:ryumakoj@gmail.com" class="inline-flex items-center gap-4 px-10 py-5 bg-teal-500 hover:bg-teal-400 text-white font-bold rounded-2xl transition-all card-shadow">
@@ -410,18 +432,166 @@
             <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-teal-100">
                 <img src="https://ryumacv.neocities.org/illust/IMG_8897.jpg" alt="Origin" class="w-full h-full object-cover">
             </div>
-            <h3 class="text-xl font-bold mb-4 text-slate-800">命名の由来</h3>
+            <h3 class="text-xl font-bold mb-4 text-slate-800" data-i18n="modal_title">命名の由来</h3>
             <p class="text-slate-600 leading-relaxed text-sm">
-                個人的にビートルズが好きなので、<br>
-                <span class="font-bold text-teal-600">Telephone Pole</span> (電柱) と<br>
-                <span class="font-bold text-teal-600">Paul McCartney</span> を掛けて、<br>
+                <span data-i18n="modal_desc_1">個人的にビートルズが好きなので、</span><br>
+                <span class="font-bold text-teal-600">Telephone Pole</span> <span data-i18n="modal_desc_2">(電柱) と</span><br>
+                <span class="font-bold text-teal-600">Paul McCartney</span> <span data-i18n="modal_desc_3">を掛けて、</span><br>
                 <span class="font-black text-slate-800 mt-2 block text-lg">Telephone Pole McCartney</span><br>
-                と命名しました。
+                <span data-i18n="modal_desc_4">と命名しました。</span>
             </p>
         </div>
     </div>
 
     <script>
+        const translations = {
+            ja: {
+                nav_about: "概要",
+                nav_problem: "課題",
+                nav_system: "システム",
+                nav_roadmap: "ロードマップ",
+                nav_members: "メンバー",
+                hero_title_1: "宅配ロボは",
+                hero_title_2: "買う時代から作る時代へ。",
+                hero_desc: "地方の輸送課題を解決するAIロボットの作り方を含めてオープンソース化",
+                hero_btn_dl: "最新プロトタイプの作り方をダウンロード",
+                hero_btn_sys: "システム構成を見る",
+                about_title: "地方のための自作ロボット",
+                about_text_1: "私の家族は岐阜で運送業を営んでいますが、運転手は年々減っており、拠点から家庭を繋ぐラストワンマイル輸送は危機に瀕しています。このままでは地方に荷物が届かず、過疎化が進んでしまいます。",
+                about_text_2: "大手企業による自動配送ロボットの社会実装が始まっていますが、導入コストの高さは地方の中小企業にとって現実的ではありません。",
+                about_highlight: "地方で苦しんでいるのは、自社で開発や高価なロボット購入ができる大企業ではなく、地方にのみ輸送網を抱える中小企業です。誰でも自作・修理できる廉価なキットを公開し、地方の自立を促します。",
+                prob_title: "なぜ宅配ロボットは導入されないのか",
+                prob_subtitle: "導入を阻む最大の理由は、技術ではなくコストにあります",
+                prob_source: "出典：Logistics Today「物流ロボ導入進むも半数が消極的、理由はコスト」",
+                cost_title: "最大の壁は導入コスト",
+                cost_item_1_label: "既存の大手製品",
+                cost_item_1_val: "500万円〜",
+                cost_item_1_sub: "＋運用費 月100万円/台",
+                cost_source: "出典：経済産業省/PwC 調査報告書",
+                cost_item_2_label: "TeleMacC 目標",
+                cost_item_2_val: "20万円以下",
+                cost_item_2_sub: "自作・自己修理で運用費を抑制",
+                sys_title: "最新プロトタイプ: TeleMacC the 1st",
+                sys_eye_label: "目",
+                sys_eye_desc: "高画質映像をストリーミング配信。ロボットの視界を担当します。",
+                sys_brain_label: "脳",
+                sys_brain_desc: "映像を解析し、電柱などを認識。足に指示を出す中枢です。",
+                sys_leg_label: "足",
+                sys_leg_title: "ミニ四駆のモーター",
+                sys_leg_desc: "ESP32からの命令を受け、実際に機体を駆動させます。",
+                sys_body_label: "体",
+                sys_body_title: "100均のホワイトボード",
+                sys_body_desc: "軽量化と低コストを両立。誰でも手に入る素材で構成されています。",
+                btn_past_proto: "過去のプロトタイプを見る",
+                proto_1_desc: "Raspberry Pi 5とArduino Minimaを搭載し、機体単体でAI処理を完結させるシステム。シャーシには近所の木材の廃材を利用し、SDGｓにも配慮した。",
+                proto_2_desc: "Boris the 1stの知見を活かしつつ、シャーシに100均のホワイトボードで軽量化を図った。",
+                map_title: "実証実験ロードマップ",
+                map_1_title: "【1ヶ月目】視覚航法の確立",
+                map_1_desc: "YOLOv8による電柱および路側帯の認識精度を向上。GPSに頼らず電柱を道標とする、省エネかつ高精度なアルゴリズムを実装します。",
+                map_2_title: "【2ヶ月目】ハードウェアの農具化",
+                map_2_desc: "地方の悪路や荒い扱いにも耐えうるホームセンターの部材でシャーシを製作。精密機器ではなく、現場で修理可能な動く荷車としての耐久性を持たせます。",
+                map_3_title: "【3ヶ月目】オープンソース化・スケーラビリティ検証",
+                map_3_desc: "荷物を積載した状態で1kmの連続自律走行試験を実施。非エンジニアによる組み立て検証を行い、誰でも作れる・直せることを証明します。",
+                mem_title: "メンバー紹介",
+                mem_ryuma_role: "考案・製作",
+                mem_personal_site: "個人サイトを表示",
+                mem_maria_role: "Co-founder / 戦略的貢献者",
+                mem_gmtc_role: "精神衛生的貢献者",
+                vis_title_1: "地方による、地方のための",
+                vis_title_2: "地方の創生",
+                vis_text_1: "誰もが作れる宅配ロボットで、地方自立を促す。",
+                vis_text_2: "宅配ロボへの敷居を低く、地方の持続性を高く。",
+                vis_text_3: "簡単に制作、運用できる未来へ。",
+                modal_title: "命名の由来",
+                modal_desc_1: "個人的にビートルズが好きなので、",
+                modal_desc_2: "(電柱) と",
+                modal_desc_3: "を掛けて、",
+                modal_desc_4: "と命名しました。"
+            },
+            en: {
+                nav_about: "About",
+                nav_problem: "Problem",
+                nav_system: "System",
+                nav_roadmap: "Roadmap",
+                nav_members: "Team",
+                hero_title_1: "Delivery Robots:",
+                hero_title_2: "From Buying to Building.",
+                hero_desc: "Open-sourcing the creation of AI robots to solve rural transportation challenges.",
+                hero_btn_dl: "Download Prototype Guide",
+                hero_btn_sys: "View System Architecture",
+                about_title: "DIY Robots for Rural Areas",
+                about_text_1: "My family runs a transport business in Gifu, but the number of drivers is decreasing every year. Last-mile delivery is in crisis. Without action, goods won't reach rural areas, accelerating depopulation.",
+                about_text_2: "Major companies have begun implementing automated delivery robots, but the high implementation cost is unrealistic for rural SMEs.",
+                about_highlight: "It is not large corporations but small rural businesses that are suffering. We are releasing affordable, repairable kits to encourage rural independence.",
+                prob_title: "Why aren't delivery robots adopted?",
+                prob_subtitle: "The biggest barrier is cost, not technology.",
+                prob_source: "Source: Logistics Today \"Robotics adoption is slow due to cost\"",
+                cost_title: "The Cost Barrier",
+                cost_item_1_label: "Existing Products",
+                cost_item_1_val: "¥5M+ / unit",
+                cost_item_1_sub: "+ OpEx ¥1M/month",
+                cost_source: "Source: METI/PwC Report",
+                cost_item_2_label: "TeleMacC Goal",
+                cost_item_2_val: "Under ¥200k",
+                cost_item_2_sub: "Low OpEx via DIY & Self-repair",
+                sys_title: "Latest Prototype: TeleMacC the 1st",
+                sys_eye_label: "Eye",
+                sys_eye_desc: "Streams high-quality video via XIAO ESP32S3 Sense. The robot's vision.",
+                sys_brain_label: "Brain",
+                sys_brain_desc: "Analyzes video to recognize poles. The command center using Python + AI.",
+                sys_leg_label: "Legs",
+                sys_leg_title: "Mini 4WD Motors",
+                sys_leg_desc: "Drives the chassis based on ESP32 commands. Cheap and reliable.",
+                sys_body_label: "Body",
+                sys_body_title: "100-yen Shop Whiteboard",
+                sys_body_desc: "Balancing light weight and low cost. Made of accessible materials.",
+                btn_past_proto: "View Past Prototypes",
+                proto_1_desc: "Equipped with Raspberry Pi 5 and Arduino Minima to complete AI processing on the device. Used scrap wood for the chassis, considering SDGs.",
+                proto_2_desc: "Leveraging knowledge from Boris the 1st, we used 100-yen whiteboards for the chassis to reduce weight.",
+                map_title: "Roadmap",
+                map_1_title: "[Month 1] Visual Navigation",
+                map_1_desc: "Improving accuracy of pole and roadside recognition with YOLOv8. Implementing energy-efficient algorithms using poles as waypoints instead of GPS.",
+                map_2_title: "[Month 2] Hardware as Farm Tools",
+                map_2_desc: "Building a chassis with hardware store parts to withstand rough rural roads. Ensuring durability as a 'moving cart' that can be repaired on-site.",
+                map_3_title: "[Month 3] Open Source & Scalability",
+                map_3_desc: "Conducting 1km continuous autonomous driving tests with load. Verifying assembly by non-engineers to prove anyone can build and fix it.",
+                mem_title: "Members",
+                mem_ryuma_role: "Concept & Creation",
+                mem_personal_site: "View Personal Site",
+                mem_maria_role: "Co-founder / Strategic Contributor",
+                mem_gmtc_role: "Mental & Moral Support",
+                vis_title_1: "Rural Revitalization:",
+                vis_title_2: "By the Locals, For the Locals",
+                vis_text_1: "Promoting rural independence with accessible robots.",
+                vis_text_2: "Lowering the barrier, increasing sustainability.",
+                vis_text_3: "Towards a future of easy creation and operation.",
+                modal_title: "Origin of the Name",
+                modal_desc_1: "Since I personally love The Beatles,",
+                modal_desc_2: "(Telephone Pole) and",
+                modal_desc_3: "were combined with Paul McCartney to name it",
+                modal_desc_4: "."
+            }
+        };
+
+        function selectLanguage(lang) {
+            // Apply translations
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            // Change html lang attribute
+            document.documentElement.lang = lang;
+
+            // Hide overlay
+            const overlay = document.getElementById('language-overlay');
+            overlay.classList.add('hidden-overlay');
+            document.getElementById('main-body').classList.remove('overflow-hidden');
+        }
+
         function togglePrototypes() {
             const container = document.getElementById('past-prototypes');
             const icon = document.getElementById('toggle-icon');
