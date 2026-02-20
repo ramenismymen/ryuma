@@ -99,7 +99,7 @@
             <h1 class="text-2xl font-bold text-slate-800 mb-2">Welcome to TeleMacC</h1>
             <p class="text-slate-500 mb-8">Please select your language / 言語を選択してください</p>
             
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <button onclick="selectLanguage('en')" class="group relative px-8 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-teal-600 transition-all shadow-lg hover:shadow-teal-500/30 w-48">
                     <span class="text-lg">English</span>
                     <span class="absolute -top-2 -right-2 bg-teal-500 text-white text-[10px] px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">Translated</span>
@@ -141,7 +141,7 @@
                     Project TeleMacC
                 </span>
                 <h1 class="text-3xl md:text-6xl font-black leading-tight mb-6 text-slate-900">
-                    <span data-i18n="hero_title_1">宅配ロボは</span><br class="block md:hidden">
+                    <span data-i18n="hero_title_1">宅配ロボは</span><br>
                     <span class="gradient-text text-4xl md:text-6xl" data-i18n="hero_title_2">買う時代から作る時代へ。</span>
                 </h1>
                 <p class="text-base md:text-2xl text-slate-700 font-bold mb-8 leading-relaxed text-balance" data-i18n="hero_desc">
@@ -250,11 +250,11 @@
                         </div>
                     </div>
                     <!-- Brain -->
-                    <div class="bg-teal-600 p-6 rounded-2xl shadow-xl text-white flex items-center gap-4 text-left">
-                        <div class="w-12 h-12 bg-teal-400 text-teal-900 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0" data-i18n="sys_brain_label">脳</div>
+                    <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-100 flex items-center gap-4 group hover:border-teal-500 transition-all text-left">
+                        <div class="w-12 h-12 bg-purple-50 text-purple-700 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0 group-hover:bg-purple-100 transition-colors" data-i18n="sys_brain_label">脳</div>
                         <div>
-                            <h3 class="text-sm md:text-base font-bold text-left">PC (Python + AI)</h3>
-                            <p class="text-xs text-teal-50 leading-snug text-left" data-i18n="sys_brain_desc">映像を解析し、電柱などを認識。足に指示を出す中枢です。</p>
+                            <h3 class="text-sm md:text-base font-bold text-slate-900 text-left">PC (Python + AI)</h3>
+                            <p class="text-xs text-slate-600 leading-snug text-left" data-i18n="sys_brain_desc">映像を解析し、電柱などを認識。足に指示を出す中枢です。</p>
                         </div>
                     </div>
                     <!-- Leg -->
@@ -335,15 +335,15 @@
             <h2 class="text-2xl md:text-3xl font-bold mb-16 text-center text-slate-900" data-i18n="map_title">実証実験ロードマップ</h2>
             <div class="relative border-l-2 border-teal-200 ml-4 space-y-16 text-slate-700 text-left">
                 <div class="timeline-step">
-                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left" data-i18n="map_1_title">【1ヶ月目】視覚航法の確立</h3>
-                    <p class="text-sm md:text-base leading-relaxed text-left" data-i18n="map_1_desc">YOLOv8による電柱および路側帯の認識精度を向上。GPSに頼らず電柱を道標とする、省エネかつ高精度なアルゴリズムを実装します。</p>
+                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left" data-i18n="map_1_title">【フェーズ1】プロトタイピング</h3>
+                    <p class="text-sm md:text-base leading-relaxed text-left" data-i18n="map_1_desc">プロトタイプを完成させ、屋内環境において動作するか実験をする。</p>
                 </div>
                 <div class="timeline-step">
-                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left" data-i18n="map_2_title">【2ヶ月目】ハードウェアの農具化</h3>
-                    <p class="text-sm md:text-base leading-relaxed text-left" data-i18n="map_2_desc">地方の悪路や荒い扱いにも耐えうるホームセンターの部材でシャーシを製作。精密機器ではなく、現場で修理可能な動く荷車としての耐久性を持たせます。</p>
+                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left" data-i18n="map_2_title">【フェーズ2】実地でのデモ走行</h3>
+                    <p class="text-sm md:text-base leading-relaxed text-left" data-i18n="map_2_desc">地方の悪路や荒い扱いにも耐えうるホームセンターの部材でシャーシを製作。実際に私道などを活用し実験走行を行います。</p>
                 </div>
                 <div class="timeline-step">
-                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left" data-i18n="map_3_title">【3ヶ月目】オープンソース化・スケーラビリティ検証</h3>
+                    <h3 class="text-lg md:text-xl font-extrabold text-teal-700 mb-4 text-left" data-i18n="map_3_title">【フェーズ3】オープンソース化・検証</h3>
                     <p class="text-sm md:text-base leading-relaxed mb-4 text-balance text-left text-left" data-i18n="map_3_desc">荷物を積載した状態で1kmの連続自律走行試験を実施。非エンジニアによる組み立て検証を行い、誰でも作れる・直せることを証明します。</p>
                 </div>
             </div>
@@ -362,7 +362,7 @@
                     </div>
                     <h3 class="text-xl font-extrabold mb-1 text-slate-800 text-center">Ryuma Kojima</h3>
                     <p class="text-teal-600 text-[10px] font-bold mb-8 uppercase tracking-widest text-center text-center" data-i18n="mem_ryuma_role">考案・製作</p>
-                    <a href="https://ryumacv.neocities.org/" target="_blank" class="w-full py-3 px-6 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center justify-center gap-2">
+                    <a href="https://ryumacv.neocities.org/" target="_blank" class="w-full py-3 px-6 bg-teal-600 rounded-xl text-xs font-bold text-white hover:bg-teal-700 transition-all flex items-center justify-center gap-2 card-shadow">
                         <span data-i18n="mem_personal_site">個人サイトを表示</span>
                     </a>
                 </div>
@@ -456,10 +456,10 @@
                 hero_desc: "地方の輸送課題を解決するAIロボットの作り方を含めてオープンソース化",
                 hero_btn_dl: "最新プロトタイプの作り方をダウンロード",
                 hero_btn_sys: "システム構成を見る",
-                about_title: "地方のための自作ロボット",
-                about_text_1: "私の家族は岐阜で運送業を営んでいますが、運転手は年々減っており、拠点から家庭を繋ぐラストワンマイル輸送は危機に瀕しています。このままでは地方に荷物が届かず、過疎化が進んでしまいます。",
+                about_title: "宅配ロボットをもっと手軽に",
+                about_text_1: "地方のトラック運転手不足対応のために大手各企業は十数年前より開発を進めており、さらに23年の法改正ではロボット単体で自走できる仕組みになっています。しかし依然として地方の中小運送企業は苦しいままです。",
                 about_text_2: "大手企業による自動配送ロボットの社会実装が始まっていますが、導入コストの高さは地方の中小企業にとって現実的ではありません。",
-                about_highlight: "地方で苦しんでいるのは、自社で開発や高価なロボット購入ができる大企業ではなく、地方にのみ輸送網を抱える中小企業です。誰でも自作・修理できる廉価なキットを公開し、地方の自立を促します。",
+                about_highlight: "地方で苦しんでいるのは、自社で開発や高価なロボット購入ができる大企業ではなく、地方にのみ輸送網を抱える中小企業です。誰でも自作・修理できる廉価なキットを公開し、宅配ロボ導入の敷居をさげます。",
                 prob_title: "なぜ宅配ロボットは導入されないのか",
                 prob_subtitle: "導入を阻む最大の理由は、技術ではなくコストにあります",
                 prob_source: "出典：Logistics Today「物流ロボ導入進むも半数が消極的、理由はコスト」",
@@ -469,28 +469,28 @@
                 cost_item_1_sub: "＋運用費 月100万円/台",
                 cost_source: "出典：経済産業省/PwC 調査報告書",
                 cost_item_2_label: "TeleMacC 目標",
-                cost_item_2_val: "20万円以下",
+                cost_item_2_val: "10万円以下",
                 cost_item_2_sub: "自作・自己修理で運用費を抑制",
                 sys_title: "最新プロトタイプ: TeleMacC the 1st",
                 sys_eye_label: "目",
-                sys_eye_desc: "高画質映像をストリーミング配信。ロボットの視界を担当します。",
+                sys_eye_desc: "ロボットの視界を担当します。",
                 sys_brain_label: "脳",
                 sys_brain_desc: "映像を解析し、電柱などを認識。足に指示を出す中枢です。",
                 sys_leg_label: "足",
-                sys_leg_title: "ミニ四駆のモーター",
+                sys_leg_title: "市販のモーター",
                 sys_leg_desc: "ESP32からの命令を受け、実際に機体を駆動させます。",
                 sys_body_label: "体",
                 sys_body_title: "100均のホワイトボード",
-                sys_body_desc: "軽量化と低コストを両立。誰でも手に入る素材で構成されています。",
+                sys_body_desc: "軽量かつ低コストで誰でも手に入る素材。",
                 btn_past_proto: "過去のプロトタイプを見る",
-                proto_1_desc: "Raspberry Pi 5とArduino Minimaを搭載し、機体単体でAI処理を完結させるシステム。シャーシには近所の木材の廃材を利用し、SDGｓにも配慮した。",
+                proto_1_desc: "Raspberry Pi5とArduino Minimaを搭載し、機体単体でAI処理を完結させるシステム。シャーシには近所の木材の廃材を利用し、SDGｓにも配慮した。",
                 proto_2_desc: "Boris the 1stの知見を活かしつつ、シャーシに100均のホワイトボードで軽量化を図った。",
-                map_title: "実証実験ロードマップ",
-                map_1_title: "【1ヶ月目】視覚航法の確立",
-                map_1_desc: "YOLOv8による電柱および路側帯の認識精度を向上。GPSに頼らず電柱を道標とする、省エネかつ高精度なアルゴリズムを実装します。",
-                map_2_title: "【2ヶ月目】ハードウェアの農具化",
-                map_2_desc: "地方の悪路や荒い扱いにも耐えうるホームセンターの部材でシャーシを製作。精密機器ではなく、現場で修理可能な動く荷車としての耐久性を持たせます。",
-                map_3_title: "【3ヶ月目】オープンソース化・スケーラビリティ検証",
+                map_title: "ロードマップ",
+                map_1_title: "【フェーズ1】プロトタイピング",
+                map_1_desc: "プロトタイプを完成させ、屋内環境において動作するか実験をする。",
+                map_2_title: "【フェーズ2】実地でのデモ走行",
+                map_2_desc: "地方の悪路や荒い扱いにも耐えうるホームセンターの部材でシャーシを製作。実際に私道などを活用し実験走行を行います。",
+                map_3_title: "【フェーズ3】オープンソース化・検証",
                 map_3_desc: "荷物を積載した状態で1kmの連続自律走行試験を実施。非エンジニアによる組み立て検証を行い、誰でも作れる・直せることを証明します。",
                 mem_title: "メンバー紹介",
                 mem_ryuma_role: "考案・製作",
@@ -532,7 +532,7 @@
                 cost_item_1_sub: "+ OpEx ¥1M/month",
                 cost_source: "Source: METI/PwC Report",
                 cost_item_2_label: "TeleMacC Goal",
-                cost_item_2_val: "Under ¥200k",
+                cost_item_2_val: "Under ¥100k",
                 cost_item_2_sub: "Low OpEx via DIY & Self-repair",
                 sys_title: "Latest Prototype: TeleMacC the 1st",
                 sys_eye_label: "Eye",
@@ -549,12 +549,12 @@
                 proto_1_desc: "Equipped with Raspberry Pi 5 and Arduino Minima to complete AI processing on the device. Used scrap wood for the chassis, considering SDGs.",
                 proto_2_desc: "Leveraging knowledge from Boris the 1st, we used 100-yen whiteboards for the chassis to reduce weight.",
                 map_title: "Roadmap",
-                map_1_title: "[Month 1] Visual Navigation",
-                map_1_desc: "Improving accuracy of pole and roadside recognition with YOLOv8. Implementing energy-efficient algorithms using poles as waypoints instead of GPS.",
-                map_2_title: "[Month 2] Hardware as Farm Tools",
-                map_2_desc: "Building a chassis with hardware store parts to withstand rough rural roads. Ensuring durability as a 'moving cart' that can be repaired on-site.",
-                map_3_title: "[Month 3] Open Source & Scalability",
-                map_3_desc: "Conducting 1km continuous autonomous driving tests with load. Verifying assembly by non-engineers to prove anyone can build and fix it.",
+                map_1_title: "[Phase 1] Prototyping",
+                map_1_desc: "Complete the prototype and test its operation in an indoor environment.",
+                map_2_title: "[Phase 2] Field Demonstration Run",
+                map_2_desc: "Build a chassis using hardware store materials that can withstand rough rural roads and handling. We will conduct test runs using private roads.",
+                map_3_title: "[Phase 3] Open Source & Verification",
+                map_3_desc: "Conduct a 1km continuous autonomous driving test with a loaded cargo. We will have non-engineers assemble it to prove that anyone can build and repair it.",
                 mem_title: "Members",
                 mem_ryuma_role: "Concept & Creation",
                 mem_personal_site: "View Personal Site",
